@@ -257,8 +257,8 @@ public class RESTfulPOSTServices
     	createXML.createTarjeta(idVenta);
     	
     	//Ejecutar FOP
-    	RunFOP runFOP=new RunFOP();
-    	runFOP.createPDF(idVenta);
+    	//RunFOP runFOP=new RunFOP();
+    	//runFOP.createPDF(idVenta);
         
         return Response.status(201).entity(result).build();
     }
