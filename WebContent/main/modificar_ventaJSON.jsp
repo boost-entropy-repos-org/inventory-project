@@ -304,16 +304,23 @@
 
     function cancelar()
     {
-        //Invoke an specific microservice to cancel the Sale - 2020-07-25
         var txtIDVenta = document.getElementById("txtIDVenta").value;
         
-        ventasObj = {};
-        ventasObj.id = txtIDVenta;
+        //Ask the user for assurance in the action
+        var txt;
+        var response = confirm("Se cancelara venta: " + txtIDVenta);
 
-        var ventaJSON = JSON.stringify(ventasObj); 
-        //Invoke API path to cancel Sale
-        //POST
-        $.ajax(
+        if (response==true)
+        {
+            //Invoke an specific microservice to cancel the Sale - 2020-07-25
+            ventasObj = {};
+            ventasObj.id = txtIDVenta;
+
+            var ventaJSON = JSON.stringify(ventasObj); 
+            //Invoke API path to cancel Sale
+            //POST
+            
+            $.ajax(
             {
                 type: "POST",
                 url: "http://localhost:8080/inventariojeans/rest/postservices/post-cancelar-venta",
@@ -324,15 +331,17 @@
                     "Content-Type": "application/json"
                 },
                 success: function(data) 
-                {//alert("Ok!");
+                {
+                    alert("Venta cancelada");
                     window.location.replace("modificar_ventaJSON.jsp");
                 },
                 error : function(e)
                 {
                     alert("Error");
                 }
-            }
-        );
+            });
+        }
+        else {}
         
     }
 
