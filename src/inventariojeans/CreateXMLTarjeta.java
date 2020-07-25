@@ -109,7 +109,7 @@ public class CreateXMLTarjeta
 		 * Put both groups into Array Lists. Iterate the lists to populate the XML nodes
 		 */
 		
-		ArrayList<String> nAbonos = new ArrayList<String>();
+		//ArrayList<String> nAbonos = new ArrayList<String>();
 		
 		while(rs.next())
 		{
@@ -140,6 +140,10 @@ public class CreateXMLTarjeta
 				abonos_n = abonos_n + row;
 			}
 		}
+		
+		//Add an element to the node abonos_n in the XML file, otherwise Apache FOP throws an error because is expecting that element - 2020-07-24
+		row = "<abono_n dia='' mes='' year='' abono='' saldo='' enganche=''/>";
+		abonos_n = abonos_n + row;
 		
 		System.out.println("How many rows: " + rsCount);
 		
