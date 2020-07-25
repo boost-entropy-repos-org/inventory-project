@@ -307,7 +307,7 @@
 
         //document.getElementById("txtAction").value = 2;
 
-        var txtIDVenta = document.getElementById("txtIDVenta");
+        var txtIDVenta = document.getElementById("txtIDVenta").value; //alert("txtIDVenta: " + txtIDVenta);
         //var txtAction = document.getElementById("txtAction");
 
         //var miformulario = document.getElementById("inv_form");
@@ -315,14 +315,15 @@
         ventasObj = {};
         ventasObj.id = txtIDVenta;
 
-        var ventaJSON = JSON.stringify(ventaObj);
+        var ventaJSON = JSON.stringify(ventasObj); alert("JSON: " + ventasJSON)
         //Invoke API path to cancel Sale
         //POST
+        /*
         $.ajax(
             {
                 type: "POST",
-                url: "http://localhost:8080/inventariojeans/rest/postservices/cancelar-venta",
-                data: JSON.stringify(ventaJSON),
+                url: "http://localhost:8080/inventariojeans/rest/postservices/post-cancelar-venta",
+                data: JSON.stringify(ventasObj),
                 headers: 
                 {
                     "Content-Type": "application/json"
@@ -337,6 +338,7 @@
                 }
             }
         );
+        */
     }
 
     function calcular_resumen()
@@ -596,7 +598,7 @@
                             <li class="sub-menu"><a href="modificar_venta.jsp">Ventas<span></span></a>
                                 <ul class="submenu">
                                     <li><a href="nueva_ventaJSON.jsp">Nueva venta</a></li>
-                                    <li><a href="modificar_venta.jsp">Ventas</a></li>
+                                    <li><a href="modificar_ventaJSON.jsp">Ventas</a></li>
                                     <li><a href="registrar_abono.jsp">Abonos</a></li>
                                     <li><a href="tarjeta.jsp">Tarjetas</a></li>
                                     <li class="tr1"></li>

@@ -184,6 +184,7 @@ public class RESTfulPOSTServices
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response postCancelarVenta(Ventas venta) throws SQLException, IOException
 	{
+		System.out.println("Venta.id: " + venta.id);
 		
 		String result = "Record entered: "+ venta;
 		
