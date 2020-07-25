@@ -134,7 +134,6 @@
 			{
 				consulta = "UPDATE inv_ventas_detalle SET actual = 3, cantidad = "+ a2.get(i) + " WHERE id_ventas_detalle = " + a1.get(i);	
 			}
-			
 
 			System.out.println("consulta: " + consulta);
 			dbHelper.updateRecords(consulta); 

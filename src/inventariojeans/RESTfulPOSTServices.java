@@ -179,6 +179,17 @@ public class RESTfulPOSTServices
 		
 	}
 	
+	@POST
+	@Path("/post-cancelar-venta")
+	@Consumes(MediaType.APPLICATION_JSON)
+	public Response postCancelarVenta(Ventas venta) throws SQLException, IOException
+	{
+		
+		String result = "Record entered: "+ venta;
+		
+		return Response.status(201).entity(result).build();
+	}
+	
 	//18-jun-2020
 	@POST
     @Path("/post-abono")
