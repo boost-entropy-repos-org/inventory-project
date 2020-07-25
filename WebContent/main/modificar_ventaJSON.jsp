@@ -304,26 +304,21 @@
 
     function cancelar()
     {
-
-        //document.getElementById("txtAction").value = 2;
-
-        var txtIDVenta = document.getElementById("txtIDVenta").value; //alert("txtIDVenta: " + txtIDVenta);
-        //var txtAction = document.getElementById("txtAction");
-
-        //var miformulario = document.getElementById("inv_form");
-        //miformulario.submit();
+        //Invoke an specific microservice to cancel the Sale - 2020-07-25
+        var txtIDVenta = document.getElementById("txtIDVenta").value;
+        
         ventasObj = {};
         ventasObj.id = txtIDVenta;
 
-        var ventaJSON = JSON.stringify(ventasObj); alert("JSON: " + ventasJSON)
+        var ventaJSON = JSON.stringify(ventasObj); 
         //Invoke API path to cancel Sale
         //POST
-        /*
         $.ajax(
             {
                 type: "POST",
                 url: "http://localhost:8080/inventariojeans/rest/postservices/post-cancelar-venta",
-                data: JSON.stringify(ventasObj),
+                //data: JSON.stringify(ventasObj),
+                data: ventaJSON,
                 headers: 
                 {
                     "Content-Type": "application/json"
@@ -338,7 +333,7 @@
                 }
             }
         );
-        */
+        
     }
 
     function calcular_resumen()
