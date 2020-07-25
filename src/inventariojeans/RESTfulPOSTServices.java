@@ -184,7 +184,34 @@ public class RESTfulPOSTServices
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response postCancelarVenta(Ventas venta) throws SQLException, IOException
 	{
+		DBHelper dbHelper = new DBHelper();
+		//ResultSet rs=null;
+		String consulta = "";
+		
 		System.out.println("Venta.id: " + venta.id);
+		
+		consulta = "UPDATE inv_ventas SET estado = 3 WHERE id_venta = " + venta.id;
+		System.out.println("consulta: " + consulta);
+		dbHelper.updateRecords(consulta);
+		
+		consulta = "UPDATE inv_ventas_detalle SET actual = 2 WHERE id_venta = " + venta.id;
+		System.out.println("consulta: " + consulta);
+		dbHelper.updateRecords(consulta);
+	
+		//int id_venta= Integer.parseInt(venta.id);
+	
+		/*
+		//Generar tarjeta en ruta de servidor Apache
+		//Generar XML
+		CreateXMLTarjeta createXML = new CreateXMLTarjeta();
+		createXML.createTarjeta(id_venta);
+			
+		//Ejecutar FOP
+		RunFOP runFOP=new RunFOP();
+		runFOP.createPDF(id_venta);
+		
+		runFOP.createPDF(id_venta);
+		*/
 		
 		String result = "Record entered: "+ venta;
 		
