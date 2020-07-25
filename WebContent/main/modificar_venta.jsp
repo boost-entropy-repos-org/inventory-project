@@ -535,22 +535,6 @@
 
         //$('embed#pdf_file').remove();
     }
-
-    /*
-    function verTarjeta(id_venta)
-    {
-        //alert("hello");
-        
-        var parent = $('embed#pdf_file').parent();
-       
-        var newElement = "<embed src='http://inventariojeans.hrlabsdesign.com:8080/tarjeta_" + id_venta +".pdf' id='pdf_file' type='application/pdf' height='570px' width='100%'>";
-
-        $('embed#pdf_file').remove();
-        parent.append(newElement);
-
-    }
-    */
-
     
     function verTarjeta(id_venta)
     {

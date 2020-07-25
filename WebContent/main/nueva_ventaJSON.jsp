@@ -69,13 +69,14 @@
         document.getElementById("txtPrecio").value = accounting.formatMoney(y[x].text);
         document.getElementById("txtCantidad").disabled=false;
 
-        
-
         x = document.getElementById("selIDArticulo").selectedIndex;
         y = document.getElementById("selIDArticulo").options;
 
         document.getElementById("txtIDArticulo").value = accounting.formatMoney(y[x].text);
 
+        //Corregir: el cursor no se posicionaba en el campo cantidad cuando se elegía una artículo
+        //2020-07-24
+        document.getElementById("txtCantidad").focus();
 
         //Corregir error: txtImporte no se actualizaba si había un cambio en el selector de articulos
         //Se actualizaba el precio pero no el importe
