@@ -384,20 +384,12 @@
 
         var txtTotal = document.getElementById("txtTotal").value;
         var txtIDVenta = document.getElementById("txtIDVenta").value;
-
-        //Get the number of original rows
-        var sizeTPartidas = Number(document.getElementById("tPartidasModFormOriginal").getElementsByTagName("tr").length);
+        
         //Populate an array with the ID's of the original rows and actual=1 - Originally this was clmIDSOriginal
-
-        //Get the ID's of the original rows
-        //Create an array to pass the values of all ID's () in an array of int's
-
         var originalIDs = [];
         
         for (i=0;i<sizeTPartidas; i++)
         {
-
-            //document.getElementById("clmIDSOriginal").value = document.getElementById("clmIDSOriginal").value + document.getElementById('tPartidasModFormOriginal').rows[i].cells[0].innerHTML + "-";
             let id;
             id = document.getElementById('tPartidasModFormOriginal').rows[i].cells[0].innerHTML; //alert("id: " + id);
             originalIDs.push({"id": id});
@@ -406,9 +398,8 @@
         var auxObj = {};
         auxObj = originalIDs;
 
-        var auxJSON = JSON.stringify(auxObj); 
-
-        alert("originalIDs: " + auxJSON);
+        var auxJSON = JSON.stringify(auxObj); //alert("originalIDs: " + auxJSON);
+        
         //tPartidasModFormPorActualizar is still the source of the modified rows
         //Create JSON
         var rows = []; 
@@ -418,7 +409,6 @@
         table.find('tr').each(function (i) 
         {
             var $tds = $(this).find('td'),
-            //cantidad = $tds.eq(0).text(),
             cantidad = $tds.eq(1).text(),
             precio = $tds.eq(2).text();
             importe = $tds.eq(3).text();
