@@ -380,34 +380,65 @@
     function guardarModificaciones()
     {
         //Pending to change to JSON payload - 2020-07-11
+        //Change to JSON payload - 2020-07-25
 
-        var txtTotal = document.getElementById("txtTotal");
-        var txtIDVenta = document.getElementById("txtIDVenta");
-        //var txtIsEnganche = document.getElementById("txtIsEnganche");
-        var txtAction = document.getElementById("txtAction");
+        var txtTotal = document.getElementById("txtTotal").value;
+        var txtIDVenta = document.getElementById("txtIDVenta").value;
 
-        var miformulario = document.getElementById("inv_form");
-
+        //Get the number of original rows
         var sizeTPartidas = Number(document.getElementById("tPartidasModFormOriginal").getElementsByTagName("tr").length);
+        //Populate an array with the ID's of the original rows and actual=1 - Originally this was clmIDSOriginal
 
+        //Get the ID's of the original rows
+        //Create an array to pass the values of all ID's () in an array of int's
+
+        var originalIDs = [];
+        
         for (i=0;i<sizeTPartidas; i++)
-        { 
-            document.getElementById("clmIDSOriginal").value = document.getElementById("clmIDSOriginal").value + document.getElementById('tPartidasModFormOriginal').rows[i].cells[0].innerHTML + "-";
+        {
+
+            //document.getElementById("clmIDSOriginal").value = document.getElementById("clmIDSOriginal").value + document.getElementById('tPartidasModFormOriginal').rows[i].cells[0].innerHTML + "-";
+            let id;
+            id = document.getElementById('tPartidasModFormOriginal').rows[i].cells[0].innerHTML; //alert("id: " + id);
+            originalIDs.push({"id": id});
         }
 
-        sizeTPartidas = Number(document.getElementById("tPartidasModFormPorActualizar").getElementsByTagName("tr").length);
+        var auxObj = {};
+        auxObj = originalIDs;
 
-        for (i=0;i<sizeTPartidas; i++)
-        { 
-            document.getElementById("clmIDVenta").value = document.getElementById("clmIDVenta").value + document.getElementById('tPartidasModFormPorActualizar').rows[i].cells[0].innerHTML + "-";
-            document.getElementById("clmCantidad").value = document.getElementById("clmCantidad").value + document.getElementById('tPartidasModFormPorActualizar').rows[i].cells[1].innerHTML + "-";
-            document.getElementById("clmPrecio").value = document.getElementById("clmPrecio").value + document.getElementById('tPartidasModFormPorActualizar').rows[i].cells[2].innerHTML + "-";
-            document.getElementById("clmImporte").value = document.getElementById("clmImporte").value + document.getElementById('tPartidasModFormPorActualizar').rows[i].cells[3].innerHTML + "-";
-            document.getElementById("clmIDArticulo").value = document.getElementById("clmIDArticulo").value + document.getElementById('tPartidasModFormPorActualizar').rows[i].cells[4].innerHTML + "-";
-        }
+        var auxJSON = JSON.stringify(auxObj); 
 
-        miformulario.submit();
+        alert("originalIDs: " + auxJSON);
+        //tPartidasModFormPorActualizar is still the source of the modified rows
+        //Create JSON
+        var rows = []; 
+       
+        var table = $("#tPartidasModFormPorActualizar");
 
+        table.find('tr').each(function (i) 
+        {
+            var $tds = $(this).find('td'),
+            //cantidad = $tds.eq(0).text(),
+            cantidad = $tds.eq(1).text(),
+            precio = $tds.eq(2).text();
+            importe = $tds.eq(3).text();
+            idArticulo = $tds.eq(4).text();
+      
+            rows.push({"cantidad": cantidad, "precio": precio, "importe": importe, "idArticulo": idArticulo});
+        });
+
+        var rowsObj = {};
+        rowsObj = rows;
+
+        ventaObj = {};
+        ventaObj.id = txtIDVenta;
+        ventaObj.total = txtTotal;
+        ventaObj.items = rowsObj;
+        
+        var ventaJSON = JSON.stringify(ventaObj);
+        alert("ventaJSON: " + ventaJSON);
+
+        //POST
     }
 
     function getVentas(event)

@@ -106,15 +106,7 @@
 			}
 		}
 	
-	/* 23-dic-19 NO SE HA NECESITADO ESTE CÓDIGO
-	String fechaVenta = "";
-	ProjectTasks myTasks = new ProjectTasks();
-
-	Date today = new Date();
-	fechaVenta = myTasks.turnDateTOSQLFormat(today);
-
-	System.out.println("Fecha devuelta: " + fechaVenta);
-	*/
+	
 	
 	DBHelper dbHelper = new DBHelper();
 	ResultSet rs=null;
@@ -124,9 +116,10 @@
 	{
 		int sizeL = a1.size();
 		//Modificar las partidas a actual=0 de todos los IDs
+		//Todas las partidas originales cambiarlas a actual=0
 		for(int i=0; i<sizeL; i++)
 		{
-			if (a3.get(i).equals("0"))
+			if (a3.get(i).equals("0")) //Si cantidad == 0
 			{
 				consulta = "UPDATE inv_ventas_detalle SET actual = 2, cantidad = "+ a2.get(i) + " WHERE id_ventas_detalle = " + a1.get(i);
 			}
@@ -175,16 +168,7 @@
 		
 	}
 	
-	if (txtAction.equals("2"))
-	{
-		consulta = "update inv_ventas set estado = 3 where id_venta = " + txtIDVenta;
-		System.out.println("consulta: " + consulta);
-		dbHelper.updateRecords(consulta);
-		
-		consulta = "update inv_ventas_detalle set actual = 2 where id_venta = " + txtIDVenta;
-		System.out.println("consulta: " + consulta);
-		dbHelper.updateRecords(consulta);
-	}
+
 	
 	id_venta= Integer.parseInt(txtIDVenta);
 	

@@ -375,7 +375,7 @@
             document.getElementById("clmIDArticulo").value = document.getElementById("clmIDArticulo").value + document.getElementById('tPartidasModFormPorActualizar').rows[i].cells[4].innerHTML + "-";
         }
 
-        //miformulario.submit();
+        miformulario.submit();
 
     }
 
@@ -535,22 +535,6 @@
 
         //$('embed#pdf_file').remove();
     }
-
-    /*
-    function verTarjeta(id_venta)
-    {
-        //alert("hello");
-        
-        var parent = $('embed#pdf_file').parent();
-       
-        var newElement = "<embed src='http://inventariojeans.hrlabsdesign.com:8080/tarjeta_" + id_venta +".pdf' id='pdf_file' type='application/pdf' height='570px' width='100%'>";
-
-        $('embed#pdf_file').remove();
-        parent.append(newElement);
-
-    }
-    */
-
     
     function verTarjeta(id_venta)
     {
@@ -690,10 +674,10 @@
 
                     <form id="inv_form" action="saveModificarVenta.jsp">
     
-                        <table id="tPartidasModFormOriginal">
+                        <table id="tPartidasModFormOriginal" hidden>
                         </table>
 
-                        <table id="tPartidasModFormPorActualizar">
+                        <table id="tPartidasModFormPorActualizar" hidden>
                         </table>
 
                         <input name="txtTotal" id="txtTotal" hidden/>
@@ -702,13 +686,13 @@
                         <input name="txtAction" id="txtAction" hidden/>
 
                         <!-- Columnas -->
-                        <input name="clmIDSOriginal" id="clmIDSOriginal"/>
+                        <input name="clmIDSOriginal" id="clmIDSOriginal" hidden/>
 
-                        <input name="clmIDVenta" id="clmIDVenta"/>
-                        <input name="clmCantidad" id="clmCantidad"/>
-                        <input name="clmPrecio" id="clmPrecio"/>
-                        <input name="clmImporte" id="clmImporte"/>
-                        <input name="clmIDArticulo" id="clmIDArticulo"/>
+                        <input name="clmIDVenta" id="clmIDVenta" hidden/>
+                        <input name="clmCantidad" id="clmCantidad" hidden/>
+                        <input name="clmPrecio" id="clmPrecio" hidden/>
+                        <input name="clmImporte" id="clmImporte" hidden/>
+                        <input name="clmIDArticulo" id="clmIDArticulo" hidden/>
                       
                         <div id="divBtnGuardar" hidden><a class="btn-default btn5" onclick="guardarModificaciones()">Guardar</a> <a> &nbsp</a></div>
                          <p></p>
