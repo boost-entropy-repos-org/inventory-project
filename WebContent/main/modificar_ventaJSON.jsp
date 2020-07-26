@@ -429,6 +429,26 @@
         alert("ventaJSON: " + ventaJSON);
 
         //POST
+        $.ajax(
+            {
+                type: POST,
+                url: "http://localhost:8080/inventariojeans/rest/postservices/post-modificar-venta",
+                data: ventaJSON,
+                headers:
+                {
+                    "Content-Type":"application/json"
+                },
+                success: function(data)
+                {
+                    //window.location.replace("modificar_ventaJSON.jsp");
+                },
+                error: function(e)
+                {
+                    alert("Error in POST");
+                }
+
+            }
+        )
     }
 
     function getVentas(event)
