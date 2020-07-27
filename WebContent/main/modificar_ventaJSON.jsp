@@ -384,25 +384,92 @@
 
         var txtTotal = document.getElementById("txtTotal").value;
         var txtIDVenta = document.getElementById("txtIDVenta").value;
-        
+
+        //Will separate the modifications in other 2 services, in order to use the seam Java Object (Venta)
+        //  One for update the current rows and another to insert the new rows
+
+        //Old rows
         //Populate an array with the ID's of the original rows and actual=1 - Originally this was clmIDSOriginal
-        var originalIDs = [];
+        var ids = [];
+
+        var table = $("#tPartidasModFormOriginal");
         
-        for (i=0;i<sizeTPartidas; i++)
+        table.find('tr').each(function (i) 
         {
             let id;
-            id = document.getElementById('tPartidasModFormOriginal').rows[i].cells[0].innerHTML; //alert("id: " + id);
-            originalIDs.push({"id": id});
-        }
-
-        var auxObj = {};
-        auxObj = originalIDs;
-
-        var auxJSON = JSON.stringify(auxObj); //alert("originalIDs: " + auxJSON);
+            var $tds = $(this).find('td');
+            id = $tds.eq(0).text();
+      
+            ids.push(id);
+        });
         
+        //Populate and array with the new quantities
+        var quantities = [];
+
+        table = $("#tPartidasModFormPorActualizar");
+        
+        table.find('tr').each(function (i) 
+        {
+            let cantidad;
+            var $tds = $(this).find('td');
+            cantidad = $tds.eq(1).text();
+      
+            quantities.push(cantidad);
+        });
+
+        //Once we have the 2 arrays (id's and quantities) populated, paste them in a new array to create the items object (itemsObj)
+        items = [];
+
+        //Get the size of the array, in theory is the same in both
+        var arraySize = quantities.length; //alert("size: " + arraySize);
+        
+        for(i=0; i<arraySize; i++)
+        {
+            let id;
+            let cantidad;
+
+            id = ids[i];
+            cantidad = quantities[i];
+
+            items.push({id, cantidad});
+        }
+        
+        var itemsObj = {};
+        itemsObj = items;
+
+        //var itemsJSON = JSON.stringify(itemsObj); //alert("itemsJSON: " + itemsJSON);
+
+        //Create ventaJSON: original IDs +  new quantities
+        var ventaObj = {};
+        ventaObj.items = itemsObj;
+
+        var ventaJSON = JSON.stringify(ventaObj); //alert("ventaJSON: " + ventaJSON);
+        
+        //POST - Update the current rows to actual=2 or actual=3
+        $.ajax(
+            {
+                type: "POST",
+                url: "http://localhost:8080/inventariojeans/rest/postservices/post-modificar-venta-oldrows",
+                data: ventaJSON,
+                headers:
+                {
+                    "Content-Type": "application/json"
+                },
+                success: function(data)
+                {
+                    //alert("hello");
+                },
+                error: function(e)
+                {
+                    alert("Error in POST");
+                }
+
+            });
+        
+        //New rows
         //tPartidasModFormPorActualizar is still the source of the modified rows
         //Create JSON
-        var rows = []; 
+        var newRows = []; 
        
         var table = $("#tPartidasModFormPorActualizar");
 
@@ -414,41 +481,40 @@
             importe = $tds.eq(3).text();
             idArticulo = $tds.eq(4).text();
       
-            rows.push({"cantidad": cantidad, "precio": precio, "importe": importe, "idArticulo": idArticulo});
+            newRows.push({"cantidad": cantidad, "precio": precio, "importe": importe, "idArticulo": idArticulo});
         });
 
         var rowsObj = {};
-        rowsObj = rows;
+        rowsObj = newRows;
 
-        ventaObj = {};
-        ventaObj.id = txtIDVenta;
-        ventaObj.total = txtTotal;
-        ventaObj.items = rowsObj;
+        var newVentaObj = {};
+        newVentaObj.id = txtIDVenta;
+        newVentaObj.total = txtTotal;
+        newVentaObj.items = rowsObj;
         
-        var ventaJSON = JSON.stringify(ventaObj);
-        alert("ventaJSON: " + ventaJSON);
-
+        var newVentaJSON = JSON.stringify(newVentaObj); //alert("newVentaJSON: " + newVentaJSON);
+        
         //POST
         $.ajax(
             {
-                type: POST,
-                url: "http://localhost:8080/inventariojeans/rest/postservices/post-modificar-venta",
-                data: ventaJSON,
+                type: "POST",
+                url: "http://localhost:8080/inventariojeans/rest/postservices/post-modificar-venta-newrows",
+                data: newVentaJSON,
                 headers:
                 {
-                    "Content-Type":"application/json"
+                    "Content-Type": "application/json"
                 },
                 success: function(data)
                 {
-                    //window.location.replace("modificar_ventaJSON.jsp");
+                    window.location.replace("modificar_ventaJSON.jsp");
                 },
-                error: function(e)
+                error: function (e)
                 {
-                    alert("Error in POST");
+                    alert("Error");
                 }
-
-            }
+            } 
         )
+    
     }
 
     function getVentas(event)
